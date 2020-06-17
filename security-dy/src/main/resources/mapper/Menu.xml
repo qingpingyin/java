@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yqp.mapper.MenuMapper">
+
+    <resultMap id="BaseResult" type="com.yqp.bean.Menu">
+        <id property="id" column="id"/>
+        <result property="pattern" column="pattern"/>
+        <collection property="roles" ofType="com.yqp.bean.Role">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="nameZh" column="nameZh"/>
+
+        </collection>
+    </resultMap>
+
+    <select id="getAllMenus" resultMap="BaseResult">
+       SELECT m.*,r.id as rid,r.name as rname,r.nameZh as rnameZh from menu_role mr LEFT JOIN menu m ON mr.mid=m.id LEFT JOIN role r on mr.rid=r.id
+    </select>
+</mapper>
